@@ -92,44 +92,80 @@
                   <th class="w15p">操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                  <td class="center">1</td>
-                  <td>sphinx.test.com.cn</td>
-                  <td>192.168.128.12</td>
-                  <td>/usr/local/sphinx</td>
-                  <td class="center">主机</td>
-                  <td class="center">2017-03-28 12:21:09</td>
-                  <td class="center"><a name="remove" onclick="Common.confirm('确认要删除吗？')"><i class="glyphicon glyphicon-remove"></i>删除</a></td>
-                </tr>
-                <tr>
-                  <td class="center">2</td>
-                  <td>sphinx.test.com.cn</td>
-                  <td>192.168.128.13</td>
-                  <td>/usr/local/sphinx</td>
-                  <td class="center">备机</td>
-                  <td class="center">2017-03-28 12:21:09</td>
-                  <td class="center"><a name="remove" onclick="Common.confirm('确认要屏蔽吗？')"><i class="glyphicon glyphicon-remove"></i>删除</a></td>
-                </tr>
-                <tr>
-                  <td class="center">3</td>
-                  <td>sphinx.video.com.cn</td>
-                  <td>192.168.158.13</td>
-                  <td>/usr/local/sphinx</td>
-                  <td class="center">主机</td>
-                  <td class="center">2017-03-28 12:21:09</td>
-                  <td class="center"><a name="remove" onclick="Common.confirm('确认要屏蔽吗？')"><i class="glyphicon glyphicon-remove"></i>删除</a></td>
-                </tr>
-                <tr>
-                  <td class="center">4</td>
-                  <td>sphinx.test.com.cn</td>
-                  <td>192.168.158.14</td>
-                  <td>/usr/local/sphinx</td>
-                  <td class="center">备机</td>
-                  <td class="center">2017-03-28 12:21:09</td>
-                  <td class="center"><a name="remove" onclick="Common.confirm('确认要屏蔽吗？')"><i class="glyphicon glyphicon-remove"></i>删除</a></td>
-                </tr>
+                <tbody id="tab_opc">
+{#                <tr>#}
+{#                  <td class="center">1</td>#}
+{#                  <td>sphinx.test.com.cn</td>#}
+{#                  <td>192.168.128.12</td>#}
+{#                  <td>/usr/local/sphinx</td>#}
+{#                  <td class="center">主机</td>#}
+{#                  <td class="center">2017-03-28 12:21:09</td>#}
+{#                  <td class="center"><a name="remove" onclick="Common.confirm('确认要删除吗？')"><i class="glyphicon glyphicon-remove"></i>删除</a></td>#}
+{#                </tr>#}
+{#                <tr>#}
+{#                  <td class="center">2</td>#}
+{#                  <td>sphinx.test.com.cn</td>#}
+{#                  <td>192.168.128.13</td>#}
+{#                  <td>/usr/local/sphinx</td>#}
+{#                  <td class="center">备机</td>#}
+{#                  <td class="center">2017-03-28 12:21:09</td>#}
+{#                  <td class="center"><a name="remove" onclick="Common.confirm('确认要屏蔽吗？')"><i class="glyphicon glyphicon-remove"></i>删除</a></td>#}
+{#                </tr>#}
+{#                <tr>#}
+{#                  <td class="center">3</td>#}
+{#                  <td>sphinx.video.com.cn</td>#}
+{#                  <td>192.168.158.13</td>#}
+{#                  <td>/usr/local/sphinx</td>#}
+{#                  <td class="center">主机</td>#}
+{#                  <td class="center">2017-03-28 12:21:09</td>#}
+{#                  <td class="center"><a name="remove" onclick="Common.confirm('确认要屏蔽吗？')"><i class="glyphicon glyphicon-remove"></i>删除</a></td>#}
+{#                </tr>#}
+{#                <tr>#}
+{#                  <td class="center">4</td>#}
+{#                  <td>sphinx.test.com.cn</td>#}
+{#                  <td>192.168.158.14</td>#}
+{#                  <td>/usr/local/sphinx</td>#}
+{#                  <td class="center">备机</td>#}
+{#                  <td class="center">2017-03-28 12:21:09</td>#}
+{#                  <td class="center"><a name="remove" onclick="Common.confirm('确认要屏蔽吗？')"><i class="glyphicon glyphicon-remove"></i>删除</a></td>#}
+{#                </tr>#}
                 </tbody>
+                  <script type="text/javascript" src="/static/jquery.js"></script>
+        <script>
+               setInterval(loaddata,1000);
+              function loaddata(){
+                  var html = '';
+                  $.ajax({
+                   url: '/machin',
+                   type: 'post',
+                   dataType: 'json',
+                    async:true,
+                   success: function (data) { //方法中传入的参数data为后台获取的数据
+                       console.log(data);
+                       console.log(123);
+                       for (var i = 0; i < data.length; i++)  //data.data指的是数组，数组里是8个对象，i为数组的索引
+                       {
+                           console.log(234);
+                           var user_id = data[i].user_id;
+                           var tag_id = data[i].tag_id;
+                           var tag_value = data[i].tag_value;
+                           var tag_type = data[i].tag_type;
+                           var tag_quality = data[i].tag_quality;
+                           var value_time = data[i].value_time;
+                           html += '<tr><td>' + user_id + '</td>' +
+                               '<td>' + tag_id + '</td>' +
+                               '<td>' + tag_value + '</td>' +
+                               '<td>' + tag_type + '</td>' +
+                               '<td>' + tag_quality + '</td>' +
+                               '<td>' + value_time + '</td></tr>';
+                           {#$("#tab").append(html)#}
+                           {#html = '';#}
+                       }
+                       document.getElementById("tab_opc").innerHTML= html;
+                   }
+               })
+              }
+        </script>
               </table>
             </div>
             <div class="panel-footer">
@@ -202,7 +238,7 @@
 <script src="/static/js/module/account.js"></script>
 <script type="text/javascript">
   var pageData = [];
-  pageData.push({'pageSize': '10', 'total': '1000', 'pageIndex': '2'});
+  pageData.push({'pageSize': '5', 'total': '100', 'pageIndex': '0'});
   Common.paginator("#paginator", pageData);
   Account.bindFancyBox();
 </script>

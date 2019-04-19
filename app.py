@@ -1,8 +1,15 @@
-from flask import Flask
+from flask import Flask,request,session
 from flask import render_template
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
+app.config['SECRET_KEY'] = '123456'
 
+from model import app
+@app.route('/')
+def index0():
+    return render_template('index0.html')
 
 @app.route('/index')
 def index():
@@ -13,7 +20,7 @@ def user():
     return render_template('user.html')
 
 @app.route('/machine')
-def machine():
+def machine_show():
     return render_template('machine.html')
 
 @app.route('/service')
