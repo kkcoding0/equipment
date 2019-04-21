@@ -99,6 +99,17 @@ def regist():
     # 关闭数据库连接
     db.close()
 
+# @app.route('/userinfo')
+# def userinfo():
+#     conn = pymysql.connect(host='127.0.0.1', user='root', password='123456', db='opcdata')
+#     cur = conn.cursor()
+#     sql = "SELECT * FROM user"
+#     cur.execute(sql)
+#     u = cur.fetchall()
+#     conn.close()
+#     print(u)
+#     return render_template('user.html',u=u)
+
 # @app.before_request
 # def before_user():
 #     if 'username' in session:
@@ -122,7 +133,18 @@ def index():
 
 @app.route('/user')
 def user():
-    return render_template('user.html')
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='123456', db='opcdata')
+    cur = conn.cursor()
+    sql = "SELECT * FROM user"
+    cur.execute(sql)
+    u = cur.fetchall()
+    conn.close()
+    print(u)
+    return render_template('user.html',u=u)
+
+@app.route('/user_form')
+def user_form():
+    return render_template('user_form.html')
 
 @app.route('/machine')
 def machine_show():
