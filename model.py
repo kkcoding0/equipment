@@ -4,6 +4,7 @@ import pymysql
 from flask import request
 import traceback
 from flask import flash,session
+import time
 
 @app.route('/machin',methods=['GET','POST'])
 def machine_data():
@@ -64,15 +65,21 @@ def log():
     # 关闭数据库连接
     db.close()
 
+@app.route('/logout')
+def logout():
+    session['username'] = ''
+    return redirect(url_for('index0'))
+
 @app.route('/regist',endpoint='regist')
 def regist():
     db = pymysql.connect("localhost", "root", "123456", "opcdata")
     cursor = db.cursor()
-    sql = "insert into user(username,password,email,phone) values" +\
-          '('+repr(request.args.get('username'))+','+\
-          repr(request.args.get('password'))+','+\
-          repr(request.args.get('email'))+','+\
-          repr(request.args.get('email'))+')'
+    sql = "insert into user(username,password,email,phone,cre_time) values" + \
+          '(' + repr(request.args.get('username')) + ',' + \
+          repr(request.args.get('password')) + ',' + \
+          repr(request.args.get('email')) + ',' + \
+          repr(request.args.get('phone')) + ',' + \
+          repr(str(time.strftime('%Y.%m.%d %H:%M:%S ', time.localtime(time.time())))) + ')'
     print(sql)
     try:
         # 执行sql语句
@@ -88,10 +95,11 @@ def regist():
     # 关闭数据库连接
     db.close()
 
-# @user.before_request
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
 # def before_user():
 #     if 'username' in session:
-#         return '已登录'
 #         pass
 #     else:
 #         return render_template('index0.html')

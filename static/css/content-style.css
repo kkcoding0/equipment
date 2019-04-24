@@ -4,6 +4,7 @@ body{
 a {
     color:#666;
     cursor: pointer;
+    font-size: large;
 }
 
 a:hover {

@@ -1,59 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
-  <title>pha-Admin</title>
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="/static/css/bootstrap-maizi.css"/>
-  <link rel="stylesheet" href="/static/css/content-style.css"/>
-  <link rel="stylesheet" href="/static/css/mricode.pagination.css"/>
-  <link rel="stylesheet" href="/static/css/jquery.fancybox.css"/>
-  <link rel="stylesheet" href="/static/css/sweetalert.css"/>
-</head>
-<body>
-<!--导航-->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <!--小屏幕导航按钮和logo-->
-    <div class="navbar-header">
-      <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href="/index" class="navbar-brand"> pha-Admin</a>
-    </div>
-    <!--小屏幕导航按钮和logo-->
-    <!--导航-->
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="/index"><span class="glyphicon glyphicon-home"></span>系统首页</a></li>
-        <li><a href="/user"><span class="glyphicon glyphicon-user"></span>用户管理</a></li>
-        <li class="active"><a href="/machine"><span class="glyphicon glyphicon-expand"></span>数据显示</a></li>
-        <li><a href="/service"><span class="glyphicon glyphicon-tasks"></span>故障诊断</a></li>
-        <li><a href="/log"><span class="glyphicon glyphicon-list-alt"></span>日志管理</a></li>
-        <li><a href="wiki.html"><span class="glyphicon glyphicon-book"></span>维修报表</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            admin
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="dLabel">
-            <li><a href="index.html"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;个人设置</a></li>
-          </ul>
-        </li>
-        <li><a href="#bbs"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
-      </ul>
-    </div>
-    <!--导航-->
-  </div>
-</nav>
-<!--导航-->
+{% extends "base0.html" %}
 <div class="container">
+    {% block content %}
   <div class="row">
     <div class="col-md-12">
       <div class="panel-body" style="padding: 15px 0;">
@@ -80,15 +27,18 @@
           </div>
           <div class="panel panel-default">
             <div class="table-responsive">
-              <table class="table table-bordered">
+        <style>
+        #data_tab{color:darkblue;font-size:15px;background-color:gray()}
+        </style>
+              <table class="table table-bordered" id="data_tab">
                 <thead>
                 <tr>
-                  <th class="w8p">id</th>
-                  <th class="w18p">域名</th>
-                  <th class="w18p">ip</th>
-                  <th class="w13p">sphinx路径</th>
-                  <th class="w10p">备注</th>
-                  <th class="w15p">创建时间</th>
+                  <th class="w8p">用户</th>
+                  <th class="w18p">变量名</th>
+                  <th class="w18p">变量值</th>
+                  <th class="w13p">数据类型</th>
+                  <th class="w10p">数据质量</th>
+                  <th class="w15p">时间</th>
                   <th class="w15p">操作</th>
                 </tr>
                 </thead>
@@ -152,12 +102,12 @@
                            var tag_type = data[i].tag_type;
                            var tag_quality = data[i].tag_quality;
                            var value_time = data[i].value_time;
-                           html += '<tr><td>' + user_id + '</td>' +
-                               '<td>' + tag_id + '</td>' +
-                               '<td>' + tag_value + '</td>' +
-                               '<td>' + tag_type + '</td>' +
-                               '<td>' + tag_quality + '</td>' +
-                               '<td>' + value_time + '</td></tr>';
+                           html += '<tr><td class="center">' + user_id + '</td>' +
+                               '<td class="center">' + tag_id + '</td>' +
+                               '<td class="center">' + tag_value + '</td>' +
+                               '<td class="center">' + tag_type + '</td>' +
+                               '<td class="center">' + tag_quality + '</td>' +
+                               '<td class="center">' + value_time + '</td></tr>';
                            {#$("#tab").append(html)#}
                            {#html = '';#}
                        }
@@ -215,20 +165,12 @@
       </div>
     </div>
   </div>
+    {% endblock %}
 </div>
 <!--footer-->
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <p class="text-muted center">
-          Copyright&nbsp;©&nbsp;2017-2018&nbsp;&nbsp;phachon@163.com&nbsp;&nbsp;
-        </p>
-      </div>
-    </div>
-  </div>
-</footer>
+
 <!--footer-->
+{% block js_content %}
 <script src="/static/js/plugins/jquery/jquery.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/plugins/pagination/mricode.pagination.js"></script>
@@ -242,5 +184,4 @@
   Common.paginator("#paginator", pageData);
   Account.bindFancyBox();
 </script>
-</body>
-</html>
+{% endblock %}
