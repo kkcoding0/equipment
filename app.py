@@ -15,9 +15,9 @@ def index0():
 def index():
     return render_template('index.html')
 
-@app.route('/user')
-def user():
-    return render_template('user.html')
+@app.route('/user_form')
+def user_form():
+    return render_template('user_form.html')
 
 @app.route('/machine')
 def machine_show():
@@ -30,6 +30,14 @@ def service():
 @app.route('/log')
 def log():
     return render_template('log.html')
+
+@app.route('/index/baidu')
+def baidu():
+    return render_template('map.html')
+
+@app.route('/service/service_form')
+def service_form():
+    return render_template('service_form.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
