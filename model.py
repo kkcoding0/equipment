@@ -3,7 +3,7 @@ import json
 import pymysql
 from flask import request
 import traceback
-from flask import flash,session
+from flask import flash,session,redirect,url_for
 import time
 
 @app.route('/machin',methods=['GET','POST'])
@@ -65,20 +65,16 @@ def log():
     # 关闭数据库连接
     db.close()
 
-@app.route('/logout')
-def logout():
-    session['username'] = ''
-    return redirect(url_for('index0'))
-
 @app.route('/regist',endpoint='regist')
 def regist():
     db = pymysql.connect("localhost", "root", "123456", "opcdata")
     cursor = db.cursor()
-    sql = "insert into user(username,password,email,phone,cre_time) values" + \
+    sql = "insert into user(username,password,email,phone,guanli,cre_time) values" + \
           '(' + repr(request.args.get('username')) + ',' + \
           repr(request.args.get('password')) + ',' + \
           repr(request.args.get('email')) + ',' + \
           repr(request.args.get('phone')) + ',' + \
+          repr('普通管理员') + ',' + \
           repr(str(time.strftime('%Y.%m.%d %H:%M:%S ', time.localtime(time.time())))) + ')'
     print(sql)
     try:
@@ -95,11 +91,45 @@ def regist():
     # 关闭数据库连接
     db.close()
 
+@app.route('/user')
+def user():
+    db = pymysql.connect("localhost", "root", "123456", "opcdata")
+    cursor = db.cursor()
+    sql = "SELECT * FROM user"
+    cursor.execute(sql)
+    u = cursor.fetchall()
+    db.close()
+    # print(u)
+    return render_template('user.html',u=u)
+
+@app.route('/remove-user/<string:username>/<string:guanli>',methods=['GET','POST'])
+def remove_user(username,guanli):
+    if guanli=='超级管理员':
+        flash("小样！你不能删除我")
+    else:
+        db = pymysql.connect("localhost", "root", "123456", "opcdata")
+        cursor = db.cursor()
+        sql = "Delete FROM user where username="+repr(username)
+        print(sql)
+        cursor.execute(sql)
+        db.commit()
+        db.close()
+    return redirect(url_for('user'))
+
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
-# def before_user():
-#     if 'username' in session:
-#         pass
-#     else:
-#         return render_template('index0.html')
+
+# @app.before_request
+# def be1():
+#     print("be1")
+#     if request.path == "/":
+#         return None
+#     if not session.get("username"):
+#         return render_template("index0.html")
+#     return None
+
+@app.route('/logout')
+def logout():
+    session.pop('username')
+    return render_template('index0.html')
