@@ -110,7 +110,7 @@
     //创建InfoWindow
     function createInfoWindow(i){
         var json = markerArr[i];
-        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+        var iw = new BMap.InfoWindow("<a  style='font-size:20px;' class='iw_poi_title' href='/machine' title='" + json.title + "'>" + json.title + "</a><div class='iw_poi_content'>"+json.content+"</div>");
         return iw;
     }
     //创建一个Icon

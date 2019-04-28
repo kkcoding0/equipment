@@ -33,13 +33,15 @@
               <table class="table table-bordered" id="data_tab">
                 <thead>
                 <tr>
-                  <th class="w8p">用户</th>
-                  <th class="w18p">变量名</th>
-                  <th class="w18p">变量值</th>
-                  <th class="w13p">数据类型</th>
-                  <th class="w10p">数据质量</th>
+                  <th class="w10p">设备序号</th>
+                  <th class="w10p">主轴转速</th>
+                  <th class="w10p">当前产量</th>
+                  <th class="w10p">单步/连绕</th>
+                  <th class="w10p">周期时间</th>
+                  <th class="w10p">放料个数</th>
+                  <th class="w10p">转速</th>
+                  <th class="w10p">圈数</th>
                   <th class="w15p">时间</th>
-                  <th class="w15p">操作</th>
                 </tr>
                 </thead>
                 <tbody id="tab_opc">
@@ -96,18 +98,24 @@
                        for (var i = 0; i < data.length; i++)  //data.data指的是数组，数组里是8个对象，i为数组的索引
                        {
                            console.log(234);
-                           var user_id = data[i].user_id;
-                           var tag_id = data[i].tag_id;
-                           var tag_value = data[i].tag_value;
-                           var tag_type = data[i].tag_type;
-                           var tag_quality = data[i].tag_quality;
-                           var value_time = data[i].value_time;
-                           html += '<tr><td class="center">' + user_id + '</td>' +
-                               '<td class="center">' + tag_id + '</td>' +
-                               '<td class="center">' + tag_value + '</td>' +
-                               '<td class="center">' + tag_type + '</td>' +
-                               '<td class="center">' + tag_quality + '</td>' +
-                               '<td class="center">' + value_time + '</td></tr>';
+                           var equipment_id = data[i].equipment_id;
+                           var maxis_speed = data[i].maxis_speed;
+                           var current_yield = data[i].current_yield;
+                           var dan_lian = data[i].dan_lian;
+                           var cycle_time = data[i].cycle_time;
+                           var material_num = data[i].material_num;
+                           var speed = data[i].speed;
+                           var quanshu = data[i].quanshu;
+                           var time = data[i].time;
+                           html += '<tr><td class="center">' + equipment_id + '</td>' +
+                               '<td class="center">' + maxis_speed + '</td>' +
+                               '<td class="center">' + current_yield + '</td>' +
+                               '<td class="center">' + dan_lian + '</td>' +
+                               '<td class="center">' + cycle_time + '</td>' +
+                               '<td class="center">' + material_num + '</td>' +
+                               '<td class="center">' + speed + '</td>' +
+                               '<td class="center">' + quanshu + '</td>' +
+                               '<td class="center">' + time + '</td></tr>';
                            {#$("#tab").append(html)#}
                            {#html = '';#}
                        }

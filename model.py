@@ -6,28 +6,52 @@ import traceback
 from flask import flash,session,redirect,url_for
 import time
 
+# @app.route('/machin',methods=['GET','POST'])
+# def machine_data():
+#     conn = pymysql.connect(host='127.0.0.1', user='root', password='123456', db='opcdata', charset='utf8')
+#     cur = conn.cursor()
+#     sql = "SELECT * FROM rtdata"
+#     cur.execute(sql)
+#     u = cur.fetall()
+#     conn.close()
+#     jsondata = []
+#     for i in u:
+#         tem = {}
+#         tem['equipment_id'] = i[1].split('.')[0]
+#         tem['tag_id'] = i[1]
+#         tem['tag_value'] = i[2]
+#         tem['tag_type'] = i[3]
+#         tem['tag_quality'] = i[4]
+#         tem['value_time'] = i[5]
+#         jsondata.append(tem)
+#     # print(jsondata)
+#     return json.dumps(jsondata)
+#     # return render_template('index.html',u=u)
+#     # return render_template('machine.html')
+
 @app.route('/machin',methods=['GET','POST'])
 def machine_data():
     conn = pymysql.connect(host='127.0.0.1', user='root', password='123456', db='opcdata', charset='utf8')
     cur = conn.cursor()
-    sql = "SELECT * FROM rtdata"
+    sql = "SELECT * FROM equip_data"
     cur.execute(sql)
-    u = cur.fetchmany(20)
+    u = cur.fetchall()
     conn.close()
     jsondata = []
     for i in u:
         tem = {}
-        tem['user_id'] = i[0]
-        tem['tag_id'] = i[1]
-        tem['tag_value'] = i[2]
-        tem['tag_type'] = i[3]
-        tem['tag_quality'] = i[4]
-        tem['value_time'] = i[5]
+        tem['equipment_id'] = i[0]
+        tem['maxis_speed'] = i[1]
+        tem['current_yield'] = i[2]
+        tem['dan_lian'] = i[3]
+        tem['cycle_time'] = i[4]
+        tem['material_num'] = i[5]
+        tem['speed'] = i[6]
+        tem['quanshu'] = i[7]
+        tem['time'] = str(time.strftime('%Y.%m.%d %H:%M:%S ', time.localtime(time.time())))
         jsondata.append(tem)
-    # print(jsondata)
+    print(jsondata)
     return json.dumps(jsondata)
-    # return render_template('index.html',u=u)
-    # return render_template('machine.html')
 
 @app.route('/yonghuming',methods=['GET','POST'])
 def yonghuming():
