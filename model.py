@@ -53,6 +53,17 @@ def machine_data():
     print(jsondata)
     return json.dumps(jsondata)
 
+@app.route('/equip_info')
+def equip_info():
+    db = pymysql.connect("localhost", "root", "123456", "opcdata")
+    cursor = db.cursor()
+    sql = "SELECT * FROM equip_info"
+    cursor.execute(sql)
+    u = cursor.fetchall()
+    db.close()
+    # print(u)
+    return render_template('equip_infomation.html',u=u)
+
 @app.route('/yonghuming',methods=['GET','POST'])
 def yonghuming():
    jsondata = []

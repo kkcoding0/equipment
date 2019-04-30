@@ -1,12 +1,12 @@
 {% extends "base0.html" %}
+{% block content %}
 <div class="container">
-    {% block content %}
   <div class="row">
     <div class="col-md-12">
       <div class="panel-body" style="padding: 15px 0;">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="">服务列表</a></li>
-          <li><a href="/service/service_form">添加服务</a></li>
+          <li class="active"><a href="">实时快速诊断</a></li>
+          <li><a href="/service/service_form">设备故障预测</a></li>
         </ul>
       </div>
       <div class="panel-body">
@@ -34,12 +34,12 @@
           <table class="table table-bordered">
             <thead>
             <tr>
-              <th class="w5p">id</th>
-              <th class="w10p">服务名称</th>
-              <th class="w10p">数据源</th>
-              <th class="w10p">数据源类型</th>
-              <th class="w10p">数据源个数</th>
-              <th class="w10p">状态</th>
+              <th class="w5p">设备序号</th>
+              <th class="w10p">故障位置</th>
+              <th class="w10p">故障点</th>
+              <th class="w10p">当前值</th>
+              <th class="w10p">限制值</th>
+              <th class="w10p">时间</th>
               <th class="w15p">操作</th>
             </tr>
             </thead>
@@ -70,8 +70,8 @@
       </div>
     </div>
   </div>
-    {% endblock %}
 </div>
+{% endblock %}
 <!--footer-->
 
 <!--footer-->
