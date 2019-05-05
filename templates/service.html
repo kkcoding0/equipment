@@ -5,7 +5,7 @@
     <div class="col-md-12">
       <div class="panel-body" style="padding: 15px 0;">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="">实时快速诊断</a></li>
+          <li class="active"><a href="/service">实时快速诊断</a></li>
           <li><a href="/service/service_form">设备故障预测</a></li>
         </ul>
       </div>
@@ -20,7 +20,7 @@
             <div class="col-md-7"></div>
             <div class="col-md-3">
               <div class="input-group">
-                <input class="form-control" type="text" value="" placeholder="服务名称" name="keyword">
+                <input class="form-control" type="text" value="" placeholder="设备序号" name="keyword">
                   <span class="input-group-btn">
                     <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
                   </span>
@@ -34,31 +34,34 @@
           <table class="table table-bordered">
             <thead>
             <tr>
-              <th class="w5p">设备序号</th>
+              <th class="w10p">设备序号</th>
               <th class="w10p">故障位置</th>
               <th class="w10p">故障点</th>
               <th class="w10p">当前值</th>
               <th class="w10p">限制值</th>
               <th class="w10p">时间</th>
-              <th class="w15p">操作</th>
+              <th class="w20p">操作</th>
             </tr>
             </thead>
             <tbody>
+            {% for i in u %}
             <tr>
-              <td class="center">1</td>
-              <td class="center">视频索引</td>
-              <td class="center">video</td>
-              <td class="center"><a data-link="message_consumer.html" name="source_info">mysql</a></td>
-              <td class="center">32</td>
-              <td class="center"><span class="label label-success">运行中</span></td>
+              <td class="center">{{ i[0] }}</td>
+              <td class="center">{{ i[1] }}</td>
+              <td class="center">{{ i[2] }}</td>
+              <!--<td class="center"><a data-link="message_consumer.html" name="source_info">mysql</a></td>-->
+              <td class="center" style="color: red">{{ i[3] }}</td>
+              <td class="center">{{ i[4] }}</td>
+              <td class="center">{{ i[5] }}</td>
               <td class="center">
                 <a data-link="service_config.html" name="consumer_list"><i class="glyphicon glyphicon-cog"></i> 配置</a>
                 <a data-link="message_consumer.html" name="consumer_list"><i class="glyphicon glyphicon-off"></i> 重启</a>
-                <a data-link="message_edit.html" name="edit"><i class="glyphicon glyphicon-pencil"></i> 修改</a>
+                <a data-link="message_edit" name="edit"><i class="glyphicon glyphicon-pencil"></i> 修改</a>
                 <a onclick="Common.confirm('确定要删除吗？')"><i class="glyphicon glyphicon-remove"></i> 删除</a>
               </td>
             </tr>
-            </tbody>
+            {% endfor %}
+          </tbody>
           </table>
         </div>
         <div class="panel-footer">
@@ -84,7 +87,7 @@
 <script src="/static/js/plugins/sweetalert/sweetalert.min.js"></script>
 <script src="/static/js/common/common.js"></script>
 <script src="/static/js/module/message.js"></script>
-<script type="/static/text/javascript">
+<script type="text/javascript">
   var pageData = [];
   pageData.push({'pageSize': '10', 'total': '1000', 'pageIndex': '2'});
   Common.paginator("#paginator", pageData);

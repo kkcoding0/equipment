@@ -64,6 +64,17 @@ def equip_info():
     # print(u)
     return render_template('equip_infomation.html',u=u)
 
+@app.route('/service')
+def service():
+    db = pymysql.connect("localhost", "root", "123456", "opcdata")
+    cursor = db.cursor()
+    sql = "SELECT * FROM problem_info"
+    cursor.execute(sql)
+    u = cursor.fetchall()
+    db.close()
+    print(u)
+    return render_template('service.html',u=u)
+
 @app.route('/yonghuming',methods=['GET','POST'])
 def yonghuming():
    jsondata = []

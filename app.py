@@ -23,10 +23,6 @@ def user_form():
 def machine_show():
     return render_template('machine.html')
 
-@app.route('/service')
-def service():
-    return render_template('service.html')
-
 @app.route('/log')
 def log():
     return render_template('log.html')
@@ -38,6 +34,10 @@ def baidu():
 @app.route('/service/service_form')
 def service_form():
     return render_template('service_form.html')
+
+@app.route('/message_edit')
+def message_edit():
+    return render_template('message_edit.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
